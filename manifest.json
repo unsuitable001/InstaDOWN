@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "InstaDOWN",
+	"version": "1.0",
+	"author": "unsuitable001",
+  
+    "description": "A utility to download Instagram pictures with ease & privacy",
+  
+    "icons": {
+      "48": "icons/main.png"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": ["*://www.instagram.com/p/*"],
+        "js": ["main.js"]
+      }
+	]
+	
+}
