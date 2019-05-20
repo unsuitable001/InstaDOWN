@@ -1,4 +1,5 @@
 var isPost=0;
+history.navigationMode = 'compatible';
 document.body.onload = function(){
     isPost = window.location.href.indexOf("instagram.com/p/");
     if (isPost != -1){
@@ -8,7 +9,6 @@ document.body.onload = function(){
         document.body.onclick = function(){
             setTimeout(() => {
                 isPost = window.location.href.indexOf("instagram.com/p/");
-                console.log(isPost);
                 if (isPost != -1){
                     if(document.getElementById("iddbtn") == null){
                         downloader();
@@ -21,19 +21,40 @@ document.body.onload = function(){
 
 
 function downloader(){
-    let btn = window.document.getElementsByClassName('_5e4p')[0];
+    window.btn = window.document.getElementsByClassName('_5e4p')[0];
     let target = window.document.getElementsByClassName('QvAa1');
     let dlObj;
+    let _vmeta;
     if (target.length < 1){
         target = window.document.getElementsByClassName('FFVAD');
         dlObj = target[target.length - 1].src;
+        bttnaddr(dlObj);
     }
     else{
-        // Video Downloader goes here.... Work In Progress
+        _vmeta = window.document.getElementsByTagName('meta')[22];
+        if (typeof(_vmeta) == 'undefined'){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var _tempageel = document.createElement( 'html' );
+                    _tempageel.innerHTML = xhttp.responseText;
+                    _vmeta = _tempageel.getElementsByTagName('meta')[22];
+                    bttnaddr(_vmeta.getAttribute('content'));
+                }
+            };
+            xhttp.open("GET", window.location.href, true);
+            xhttp.send();
+        }
+        else{
+            bttnaddr(_vmeta.getAttribute('content'));
+        }
     }
-    let _nbttn =  btn.cloneNode(true);
+}
+
+function bttnaddr(dlObj){
+    let _nbttn =  window.btn.cloneNode(true);
     _nbttn.innerHTML = `<span id="iddbtn" onclick='window.open("` + dlObj + `");' download>` + _nbttn.innerHTML + "</span>";
     _nbttn.setAttribute("style", "transform: rotate(180deg);");
-    btn.after(_nbttn);
+    window.btn.after(_nbttn);
 }
 
