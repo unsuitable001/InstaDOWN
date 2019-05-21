@@ -1,22 +1,19 @@
 var isPost=0;
-history.navigationMode = 'compatible';
 document.body.onload = function(){
     isPost = window.location.href.indexOf("instagram.com/p/");
     if (isPost != -1){
         downloader();
     }
-    else{
-        document.body.onclick = function(){
-            setTimeout(() => {
-                isPost = window.location.href.indexOf("instagram.com/p/");
-                if (isPost != -1){
-                    if(document.getElementById("iddbtn") == null){
-                        downloader();
-                    }
+    document.body.onclick = function(){
+        setTimeout(() => {
+            isPost = window.location.href.indexOf("instagram.com/p/");
+            if (isPost != -1){
+                if(document.getElementById("iddbtn") == null){
+                    downloader();
                 }
-            }, 500);
-        };
-    }
+            }
+        }, 500);
+    };
 };
 
 
