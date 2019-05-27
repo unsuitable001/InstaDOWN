@@ -12,7 +12,7 @@ document.body.onload = function(){
                     downloader();
                 }
             }
-        }, 500);
+        }, 1000);
     };
 };
 
@@ -49,9 +49,21 @@ function downloader(){
 }
 
 function bttnaddr(dlObj){
-    let _nbttn =  window.btn.cloneNode(true);
-    _nbttn.innerHTML = `<span id="iddbtn" onclick='window.open("` + dlObj + `");' download>` + _nbttn.innerHTML + "</span>";
-    _nbttn.setAttribute("style", "transform: rotate(180deg);");
-    window.btn.after(_nbttn);
+	try{
+    	let _nbttn =  window.btn.cloneNode(true);
+    	_nbttn.innerHTML = `<span id="iddbtn" onclick='window.open("` + dlObj + `");' download>` + _nbttn.innerHTML + "</span>";
+    	_nbttn.setAttribute("style", "transform: rotate(180deg);");
+    	window.btn.after(_nbttn);
+    }
+    catch(TypeError){
+    	    setTimeout(() => {
+            isPost = window.location.href.indexOf("instagram.com/p/");
+            if (isPost != -1){
+                if(document.getElementById("iddbtn") == null){
+                    downloader();
+                }
+            }
+        }, 500);
+    }
 }
 
